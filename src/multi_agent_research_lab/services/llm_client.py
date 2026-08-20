@@ -30,6 +30,7 @@ class LLMClient:
                 from openai import OpenAI
                 client = OpenAI(
                     api_key=settings.openai_api_key,
+                    base_url=settings.openai_base_url,
                     timeout=settings.timeout_seconds,
                 )
                 response = client.chat.completions.create(
