@@ -115,3 +115,9 @@ Mỗi nhóm trả lời 2 câu:
 
 1. Case nào nên dùng multi-agent? Vì sao?
 2. Case nào không nên dùng multi-agent? Vì sao?
+
+### Câu trả lời
+
+1. **Nên dùng multi-agent** cho nhiệm vụ nghiên cứu dài có nhiều bước độc lập hoặc cần kiểm chứng chéo, ví dụ: tổng hợp tài liệu, so sánh nhiều nguồn, hoặc phân tích yêu cầu cần Researcher thu thập bằng chứng, Analyst đánh giá độ tin cậy và Writer tổng hợp. Cách này làm rõ trách nhiệm, giữ được provenance trong shared state và giúp debug từng handoff. Đổi lại, hệ thống phải chấp nhận thêm latency, chi phí điều phối và failure surface.
+
+2. **Không nên dùng multi-agent** cho câu hỏi ngắn, nhiệm vụ có quy trình cố định, hoặc yêu cầu latency/cost rất thấp như phân loại đơn giản, FAQ hoặc một phép biến đổi dữ liệu. Single-agent hoặc một hàm deterministic thường đủ tốt, ít điểm lỗi hơn và dễ kiểm thử hơn. Không nên thêm agent chỉ để tạo thêm bước trung gian mà không cải thiện quality, citation coverage hoặc khả năng kiểm soát.

@@ -9,6 +9,7 @@ from multi_agent_research_lab.agents import (
     WriterAgent,
 )
 from multi_agent_research_lab.core.state import ResearchState
+from multi_agent_research_lab.observability.tracing import traced
 
 
 class MultiAgentWorkflow:
@@ -54,17 +55,21 @@ class MultiAgentWorkflow:
         return value["route_history"][-1]
 
     @staticmethod
+    @traced("multi-agent.supervisor")
     def _supervisor_node(value: dict[str, Any]) -> dict[str, Any]:
         return SupervisorAgent().run(ResearchState.model_validate(value)).model_dump()
 
     @staticmethod
+    @traced("multi-agent.researcher")
     def _researcher_node(value: dict[str, Any]) -> dict[str, Any]:
         return ResearcherAgent().run(ResearchState.model_validate(value)).model_dump()
 
     @staticmethod
+    @traced("multi-agent.analyst")
     def _analyst_node(value: dict[str, Any]) -> dict[str, Any]:
         return AnalystAgent().run(ResearchState.model_validate(value)).model_dump()
 
     @staticmethod
+    @traced("multi-agent.writer")
     def _writer_node(value: dict[str, Any]) -> dict[str, Any]:
         return WriterAgent().run(ResearchState.model_validate(value)).model_dump()
